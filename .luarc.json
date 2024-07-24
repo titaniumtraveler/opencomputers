@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "workspace.library": [
+    "types",
+    "OpenComputers/src/main/resources/assets/opencomputers/loot/openos/lib",
+    "OpenComputers/src/main/resources/assets/opencomputers/loot/openos/lib",
+    "OpenComputers/src/main/resources/assets/opencomputers/lua/component/robot/lib"
+  ],
+  "runtime.version": "Lua 5.3"
+}

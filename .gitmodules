@@ -1,0 +1,3 @@
+[submodule "OpenComputers"]
+	path = OpenComputers
+	url = https://github.com/MightyPirates/OpenComputers
