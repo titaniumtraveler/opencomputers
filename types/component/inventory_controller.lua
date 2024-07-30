@@ -1,7 +1,7 @@
 ---@meta
 ---@module "component.base"
 
----@class Component.Inventory_controller: Component.Base
+---@class Component.InventoryController: Component.Base
 local inventory_controller = {}
 
 --- Store an item stack description in the specified slot of the database with the specified address.
