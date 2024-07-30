@@ -4,6 +4,16 @@
 ---@class Component.InventoryController: Component.Base
 local inventory_controller = {}
 
+---@class Component.InventoryController.SlotStack
+---@field damage    number the current damage value of the item.
+---@field maxDamage number the maximum damage this item can have before it breaks.
+---@field size      number the current stack size of the item.
+---@field maxSize   number the maximum stack size of this item.
+---@field id        number the Minecraft id of the item. Note that this field is only included if insertIdsInConverters=true in the configs, and can vary between servers!
+---@field name      string the untranslated item name, which is an internal Minecraft value like oc:item.FloppyDisk
+---@field label     string the translated item name
+---@field hasTag    boolean whether or not the item has an NBT tag associated with it.
+
 --- Store an item stack description in the specified slot of the database with the specified address.
 ---@param side number
 ---@param slot number
@@ -25,7 +35,7 @@ function inventory_controller.getInventorySize(side) end
 --- Get a description of the stack in the inventory on the specified side of the device.
 ---@param side number
 ---@param slot number
----@return table
+---@return Component.InventoryController.SlotStack?
 function inventory_controller.getStackInSlot(side, slot) end
 
 --- Get the maximum number of items in the specified slot of the inventory on the specified side of the device.
@@ -36,7 +46,7 @@ function inventory_controller.getSlotMaxStackSize(side, slot) end
 
 --- Get a description of the stack in the specified slot or the selected slot.
 ---@param slot number?
----@return table
+---@return Component.InventoryController.SlotStack?
 function inventory_controller.getStackInInternalSlot(slot) end
 
 --- Swaps the equipped tool with the content of the currently selected inventory slot.
