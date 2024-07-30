@@ -1,19 +1,17 @@
-local M = {}
-
 local component = require "component"
 local robot = component.robot
 
 ---@class Multiblock.Inventory
 ---@field inventory table<string, Multiblock.Inventory.Entry>
-M.Inventory = {}
-M.Inventory.__index = M.Inventory
+local Inventory = {}
+Inventory.__index = Inventory
 
 ---@class Multiblock.Inventory.Entry
 ---@field max_stack integer
 ---@field slots table<integer, integer>
 
 ---@return self
-function M.Inventory:new()
+function Inventory:new()
   local o = { inventory = {} }
   setmetatable(o, self)
   return o
@@ -21,7 +19,7 @@ end
 
 ---@param stack Component.InventoryController.SlotStack
 ---@param slot integer
-function M.Inventory:add_entry(stack, slot)
+function Inventory:add_entry(stack, slot)
   local entry = self.inventory[stack.name]
   if entry then
     if entry.slots[slot] then
@@ -40,7 +38,7 @@ end
 ---@param item string
 ---@param amount integer?
 ---@return integer?
-function M.Inventory:remove_item(item, amount)
+function Inventory:remove_item(item, amount)
   local entry = self.inventory[item]
   if not entry then
     return nil
@@ -69,10 +67,10 @@ end
 
 ---@param side number? omit to get the internal inventory
 ---@return self
-function M.Inventory.scan(side)
+function Inventory.scan(side)
   local inventory_controller = component.inventory_controller
 
-  local inventory = M.Inventory:new()
+  local inventory = Inventory:new()
 
   local getStackInSlot
   if side then
@@ -101,7 +99,7 @@ end
 
 ---@param item string
 ---@return integer
-function M.Inventory:sum_amount(item)
+function Inventory:sum_amount(item)
   ---@type integer
   local sum = 0
 
@@ -115,4 +113,4 @@ function M.Inventory:sum_amount(item)
   return sum
 end
 
-return M
+return Inventory

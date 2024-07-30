@@ -1,11 +1,12 @@
 local component = require "component"
 local robot = component.robot
+
 local sides = require "sides"
 
-local Position = require "multiblock.lib.movement".Position
-local Placement = require "multiblock.lib.placement".Placement
-local Inventory = require "multiblock.lib.inventory".Inventory
-local Recipe = require "multiblock.lib.recipe".Recipe
+local Inventory = require "multiblock.lib.inventory"
+local Position = require "multiblock.lib.position"
+local Placement = require "multiblock.lib.placement"
+local Recipe = require "multiblock.lib.recipe"
 
 local enderpearl = Recipe:load("multiblock.recipes.ender_pearl")
 

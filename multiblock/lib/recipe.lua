@@ -1,20 +1,19 @@
 ---@module "multiblock.types.recipe"
 ---@module "multiblock.lib.inventory"
-local Position = require "multiblock.lib.movement".Position
 
-local M = {}
+local Position = require "multiblock.lib.position"
 
 ---@class Multiblock.Recipe.loaded: Multiblock.Recipe
 ---@field anchor Multiblock.Position
 ---@field cost Multiblock.Recipe.cost
-M.Recipe = {}
-M.Recipe.__index = M.Recipe
+local Recipe = {}
+Recipe.__index = Recipe
 
 ---@alias Multiblock.Recipe.cost table<string, integer>
 
 ---@param item string
 ---@return self
-function M.Recipe:load(item)
+function Recipe:load(item)
   ---@type Multiblock.Recipe.loaded
   local recipe = require(item)
 
@@ -29,7 +28,7 @@ function M.Recipe:load(item)
 end
 
 ---@return Multiblock.Recipe.cost
-function M.Recipe:calculate_cost()
+function Recipe:calculate_cost()
   local cost = {}
 
   cost[self.trigger_item] = 1
@@ -53,7 +52,7 @@ end
 
 ---@param inv Multiblock.Inventory
 ---@return integer
-function M.Recipe:calculate_amount(inv)
+function Recipe:calculate_amount(inv)
   local craft_amount = 0
   for item, item_amount in pairs(self.cost) do
     craft_amount = math.max(craft_amount, inv:sum_amount(item) // item_amount)
@@ -61,4 +60,4 @@ function M.Recipe:calculate_amount(inv)
   return craft_amount
 end
 
-return M
+return Recipe

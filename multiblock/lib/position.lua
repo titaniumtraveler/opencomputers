@@ -1,5 +1,3 @@
-local M = {}
-
 local component = require "component"
 local sides = require "sides"
 
@@ -14,14 +12,14 @@ local sides = require "sides"
 ---@field x number front/back
 ---@field y number above/below
 ---@field z number right/left
-M.Position = {}
-M.Position.__index = M.Position
+Position = {}
+Position.__index = Position
 
 ---@param x number
 ---@param y number
 ---@param z number
 ---@return Multiblock.Position
-function M.Position:new(x, y, z)
+function Position:new(x, y, z)
   local o = { x = x, y = y, z = z }
   setmetatable(o, self)
   return o
@@ -29,14 +27,14 @@ end
 
 ---@param o Multiblock.Position
 ---@return Multiblock.Position
-function M.Position:__add(o)
-  return M.Position:new(self.x + o.x, self.y + o.y, self.z + o.z)
+function Position:__add(o)
+  return Position:new(self.x + o.x, self.y + o.y, self.z + o.z)
 end
 
 ---@param o Multiblock.Position
 ---@return Multiblock.Position
-function M.Position:__sub(o)
-  return M.Position:new(self.x - o.x, self.y - o.y, self.z - o.z)
+function Position:__sub(o)
+  return Position:new(self.x - o.x, self.y - o.y, self.z - o.z)
 end
 
 --- Walk `steps` either in `pos`-direction or `neg` direction depending on the sign of `steps`.
@@ -46,7 +44,7 @@ end
 ---@param pos number
 ---@param neg number
 ---@return boolean, number, string?
-function M.Position:move_along_axis(steps, pos, neg)
+function Position:move_along_axis(steps, pos, neg)
   local walked = 0
 
   if 0 < steps then
@@ -75,7 +73,7 @@ end
 --- Move `rel` relative to the current position
 ---@param rel Multiblock.Position
 ---@return boolean, string?
-function M.Position:move_rel(rel)
+function Position:move_rel(rel)
   local res, walked, msg
 
   if 0 < rel.y then
@@ -117,8 +115,8 @@ end
 --- Move from the current position to `to`
 ---@param to Multiblock.Position
 ---@return boolean, string?
-function M.Position:move_to(to)
+function Position:move_to(to)
   return self:move_rel(to - self)
 end
 
-return M
+return Position
