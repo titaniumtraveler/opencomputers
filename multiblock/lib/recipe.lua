@@ -4,20 +4,22 @@
 local Position = require "multiblock.lib.position"
 
 ---@class Multiblock.Recipe.loaded: Multiblock.Recipe
+---@field path   string
 ---@field anchor Multiblock.Position
----@field cost Multiblock.Recipe.cost
+---@field cost   Multiblock.Recipe.cost
 local Recipe = {}
 Recipe.__index = Recipe
 
 ---@alias Multiblock.Recipe.cost table<string, integer>
 
----@param item string
+---@param path string
 ---@return self
-function Recipe:load(item)
+function Recipe:load(path)
   ---@type Multiblock.Recipe.loaded
-  local recipe = require(item)
+  local recipe = require(path)
 
   if not getmetatable(recipe) then
+    recipe.path = path
     recipe.anchor = Position:new(table.unpack(recipe.anchor))
     setmetatable(recipe, self)
     -- TODO: add some validation logic in here
