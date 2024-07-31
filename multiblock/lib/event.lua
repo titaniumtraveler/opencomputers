@@ -6,7 +6,7 @@ local EventHandler = {}
 EventHandler.__index = EventHandler
 
 ---@param handler Signal.handler
----@param default? fun(name: string, ...)
+---@param default? fun(name: string, ...): ...
 ---@return self
 function EventHandler:new(handler, default)
   ---@type Multiblock.EventHandler
