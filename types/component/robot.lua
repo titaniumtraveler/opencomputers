@@ -16,11 +16,12 @@ function robot.count(slot) end
 
 --- Drops items from the selected slot towards the specified side.
 ---@param side number
----@param count number=64
----@return boolean
+---@param count? number 64
+---@return false
 function robot.drop(side, count) end
 
 --- Move up to the specified amount of items from the selected slot into the specified slot.
+--- If no amount is specified, the entire stack is moved to the target slot.
 ---@param toSlot number
 ---@param amount number?
 ---@return boolean
@@ -98,8 +99,8 @@ function robot.tankCount() end
 
 --- Suck up items from the specified side.
 ---@param side number
----@param count number=64
----@return boolean
+---@param count? number defaults to 64
+---@return number | false
 function robot.suck(side, count) end
 
 --- Compares the fluids in the selected and the specified tank. Returns true if equal.

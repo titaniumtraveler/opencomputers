@@ -9,41 +9,41 @@
 --- Note: do not use this directly when possible, but use `component_available` instead,
 --- which is queued by the [[api:component|component library]] when a *primary* component was added
 --- / the primary component changed.
----@field component_added fun(address: string, componentType: string)?
+---@field component_added? fun(address: string, componentType: string): ...
 --- # Computer
 ---
 --- This signal is queued by the [[block:case|computer]] or [[block:robot|robot]] when a component is removed from it.
 --- The address is the address of the removed component, `componentType` is the type of the component (e.g. `redstone` or `gpu`).
 --- Note: do not use this directly when possible, but use `component_unavailable` instead,
 --- which is queued by the [[api:component|component library]] when a *primary* component is removed.
----@field component_removed fun(address: string, componentType: string)?
+---@field component_removed? fun(address: string, componentType: string): ...
 --- # Computer
 ---
 --- This signal is queued by the [[api:component|component library]] when a *primary* component was added / the primary component changed.
 --- It is generally preferred to use this over `component_added`, to avoid conflicts with the component library.
----@field component_available fun(componentType: string)?
+---@field component_available? fun(componentType: string): ...
 --- # Computer
 ---
 --- This signal is queued by the [[api:component|component library]] when a *primary* component is removed.
 --- It is generally preferred to use this over `component_removed`, to avoid conflicts with the component library.
----@field component_unavailable fun(componentType: string)?
+---@field component_unavailable? fun(componentType: string): ...
 --- # Computer
 ---
 --- This signal is queued by the [[api:term|term library]] when both a [[item:graphics_card|GPU]] *and* [[block:screen|screen]] become available in a computer.
 --- This is useful to determine whether it is now possible to print text to an attached screen.
----@field term_available fun()?
+---@field term_available? fun(): ...
 --- # Computer
 ---
 --- This signal is queued by the [[api:term|term library]] when either the primary [[item:graphics_card|GPU]]
 --- or [[block:screen|screen]] becomes unavailable in a computer.
 --- This is useful to determine when it becomes impossible to print text to an attached screen.
----@field term_unavailable fun()?
+---@field term_unavailable? fun(): ...
 --- # Screen
 ---
 --- This signal is queued by [[block:screen|screens]] when their resolution changes,
 --- for example because it was manually set via a [[component:gpu|GPU]].
 --- The address is the address of the screen that queued the signal.
----@field screen_resized fun(screenAddress: string, newWidth: number, newHeight: number)?
+---@field screen_resized? fun(screenAddress: string, newWidth: number, newHeight: number): ...
 --- # Screen
 ---
 --- This signal is queued by screens of tier two and tier three when they are clicked.
@@ -58,18 +58,18 @@
 --- It's just quite handy for multi-user programs, so I left it in for now.
 --- //Important//: this signal is *checked*, i.e. it is only queued on a computer if the player that caused it
 --- is [[:computer_users|registered as a user]] on the computer (or there are no users registered on the computer).
----@field touch fun(screenAddress: string, x: number, y: number, button: number, playerName: string)?
+---@field touch? fun(screenAddress: string, x: number, y: number, button: number, playerName: string): ...
 --- # Screen
 ---
 --- This signal is almost equivalent to the `touch` signal.
 --- The only difference is the implicit meaning: when this signal is fired,
 --- it "belongs" to a `touch` signal that was fired earlier. This can only be triggered by dragging in the GUI.
----@field drag fun(screenAddress: string, x: number, y: number, button: number, playerName: string)?
+---@field drag? fun(screenAddress: string, x: number, y: number, button: number, playerName: string): ...
 --- # Screen
 ---
 --- This signal is triggered when the player releases the mouse button after a `touch` signal.
 --- Despite the name, it does not necessarily follow a `drag` signal.
----@field drop fun(screenAddress: string, x: number, y: number, button: number, playerName: string)?
+---@field drop? fun(screenAddress: string, x: number, y: number, button: number, playerName: string): ...
 --- # Screen
 ---
 --- This signal is queued by screens of tier two and tier three when the player uses the mouse wheel in the GUI.
@@ -80,7 +80,7 @@
 --- Note that this may differ based on the client's operating system and/or driver configuration.
 --- The player name is the user name of the player that triggered the event.
 --- The same considerations apply to the player name parameter as in `touch`.
----@field scroll fun(screenAddress: string, x: number, y: number, direction: number, playerName: string)?
+---@field scroll? fun(screenAddress: string, x: number, y: number, direction: number, playerName: string): ...
 --- # Screen
 ---
 --- This signal is queued by screens of tier two and tier three when a player or other entity walks on them.
@@ -90,7 +90,7 @@
 --- Unlike clicks, this can be triggered for regions of the screen where nothing is displayed
 --- based on the current resolution, so keep that in mind.
 --- The same considerations apply to the player name parameter as in `touch`.
----@field walk fun(screenAddress: string, x: number, y: number, playerName: string?)?
+---@field walk? fun(screenAddress: string, x: number, y: number, playerName: string | nil): ...
 --- # Keyboard
 ---
 --- This signal is queued by [[block:keyboard|keyboards]] when a user inputs something on the screen it's attached to,
@@ -98,7 +98,7 @@
 --- //Important//: this signal is *checked*, i.e. it is only queued on a computer
 --- if the player that caused it is [[:computer_users|registered as a user]] on the computer
 --- (or there are no users registered on the computer).
----@field key_down fun(keyboardAddress: string, char: number, code: number, playerName: string)?
+---@field key_down? fun(keyboardAddress: string, char: number, code: number, playerName: string): ...
 --- # Keyboard
 ---
 --- This signal is queued by [[block:keyboard|keyboards]] when a user inputs something
@@ -110,7 +110,7 @@
 --- //Important//: this signal is *checked*, i.e. it is only queued on a computer
 --- if the player that caused it is [[:computer_users|registered as a user]] on the computer
 --- (or there are no users registered on the computer).
----@field key_up fun(keyboardAddress: string, char: number, code: number, playerName: string)?
+---@field key_up? fun(keyboardAddress: string, char: number, code: number, playerName: string): ...
 --- # Keyboard
 ---
 --- This signal is queued by [[block:keyboard|keyboards]] when a user pastes text from the clipboard
@@ -119,7 +119,7 @@
 --- //Important//: this signal is *checked*, i.e. it is only queued on a computer
 --- if the player that caused it is [[:computer_users|registered as a user]] on the computer
 --- (or there are no users registered on the computer).
----@field clipboard fun(keyboardAddress: string, value: string, playerName: string)?
+---@field clipboard? fun(keyboardAddress: string, value: string, playerName: string): ...
 --- # Redstone Cards and I/O Block
 ---
 --- This signal is queued by [[component:redstone|redstone components]] when an incoming signal changes.
@@ -130,12 +130,12 @@
 --- so for computers and robots this depends on which way they are facing.
 --- For Redstone I/O blocks this is always the absolute side.
 --- The color is only included with bundled inputs, referring to which color of input changed.
----@field redstone_changed fun(address: string, side: number, oldValue: number, newValue: number, color: number?)?
+---@field redstone_changed? fun(address: string, side: number, oldValue: number, newValue: number, color: number | nil): ...
 --- # Motion Sensor Block
 ---
 --- Fired by the [[block:motion_sensor|motion sensor]] when a living entity in its line of sight
 --- moves faster than the configured sensitivity.
----@field motion fun(address:string, relativeX:number, relativeY:number, relativeZ:number, entityName:string?)?
+---@field motion? fun(address:string, relativeX:number, relativeY:number, relativeZ:number, entityName:string | nil): ...
 --- # Network Cards
 ---
 --- This signal is queued by [[item:lan_card|network cards]] (including wireless ones)
@@ -150,12 +150,12 @@
 --- For normal network cards the distance will always be zero.
 --- All further parameters are user defined and correspond to what the sender specified in
 --- [[component:modem|modem.send()]] or `modem.broadcast()` as the message's payload.
----@field modem_message fun(receiverAddress: string, senderAddress: string, port: number, distance: number, ...)?
+---@field modem_message? fun(receiverAddress: string, senderAddress: string, port: number, distance: number, ...): ...
 --- # Robots
 ---
 --- This signal is queued by robots when their inventory changes. Note that this only includes changes to the kind of item stored in a slot. For example, increasing or decreasing the size of an already present stack does not trigger this signal. However, swapping one item with another (say, torches with sticks)  by hand will actually trigger *two* signals: one for the removal of the torches, one for putting the sticks into the temporarily empty slot. Swapping items using [[api:robot|robot.transferTo()]] will even trigger *four* signals - the same thing, but for the two slots involved in the swap.
 --- Also, this only fires for the actually addressable inventory of the robot, i.e. it does not trigger for changes in equipment (tool, card, upgrade).
----@field inventory_changed fun(slot: number)?
+---@field inventory_changed? fun(slot: number): ...
 --- # Abstract Bus Card
 ---
 --- - `protocolId` is the protocol version that was used.
@@ -163,11 +163,11 @@
 --- - `targetAddress` is the address of the device that the messages was intended for (-1 for network broadcasts).
 --- - `data` is a table of the data that was sent.
 --- - `metadata` is a table of data that are unique to the device that send the address.
----@field bus_message fun(protocolId: number, senderAddress: number, targetAddress: number, data: table, metadata: table)?
+---@field bus_message? fun(protocolId: number, senderAddress: number, targetAddress: number, data: table, metadata: table): ...
 --- # Carriage
 ---
 --- This signal is queued by the carriage component after a move or simulate command was issued.
 --- The `success` parameter indicates whether the move or simulation was successful,
 --- i.e. whether the carriage could be moved. If the move failed, `reason` is the error message.
 --- Depending on the error message, (`x`, `y`, `z`) is the world coordinate of the block that caused the move to fail.
----@field carriage_moved fun(success: boolean, reason:string?, x:number?, y: number?, z: number?)?
+---@field carriage_moved? fun(success: boolean, reason:string | nil, x:number | nil, y: number | nil, z: number | nil): ...
