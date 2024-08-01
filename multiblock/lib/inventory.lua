@@ -105,7 +105,7 @@ function Inventory:sum_amount(item)
 
   local entry = self.inventory[item]
   if entry then
-    for _, amount in pairs(entry) do
+    for _, amount in pairs(entry.slots) do
       sum = sum + amount
     end
   end
