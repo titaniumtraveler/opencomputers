@@ -55,9 +55,9 @@ end
 ---@param inv Multiblock.Inventory
 ---@return integer
 function Recipe:calculate_amount(inv)
-  local craft_amount = 0
+  local craft_amount = math.huge
   for item, item_amount in pairs(self.cost) do
-    craft_amount = math.max(craft_amount, inv:sum_amount(item) // item_amount)
+    craft_amount = math.min(craft_amount, inv:sum_amount(item) // item_amount)
   end
   return craft_amount
 end
