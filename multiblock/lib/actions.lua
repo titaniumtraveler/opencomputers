@@ -72,9 +72,19 @@ function Actions:retrieve_output()
   return true
 end
 
+---@return boolean, string?
 function Actions:output_items()
+  local res, msg
+
+  res, msg = self:move_to_home()
+  if not res then
+    return false, msg
+  end
+
   robot.select(self.output_slot)
-  return robot.drop(sides.up)
+  robot.drop(sides.up)
+
+  return true
 end
 
 ---@return Multiblock.Recipe.loaded?
