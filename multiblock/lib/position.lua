@@ -37,6 +37,12 @@ function Position:__sub(o)
   return Position:new(self.x - o.x, self.y - o.y, self.z - o.z)
 end
 
+---@param o Multiblock.Position
+---@return boolean
+function Position:__eq(o)
+  return self.x == o.x and self.y == o.y and self.z == o.z
+end
+
 --- Walk `steps` either in `pos`-direction or `neg` direction depending on the sign of `steps`.
 --- If an error occurs this function exits early with the steps walked and error message.
 --- The caller is responsible to update the position.
