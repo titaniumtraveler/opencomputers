@@ -3,14 +3,10 @@ local event = require "event"
 local Actions = require "multiblock.lib.actions"
 local Position = require "multiblock.lib.position"
 
-local actions = Actions:new(Position:new(-4, -1, -2), Position:new(0, 4, 0))
+local config = require "multiblock_config"
+local actions = Actions:new(Position:new(table.unpack(config.center)), Position:new(table.unpack(config.drop)))
 
-actions:set_recipes({
-  "multiblock.recipes.ender_pearl",
-  "multiblock.recipes.compact_normal",
-  "multiblock.recipes.compact_wall",
-  "multiblock.recipes.compact_giant_sm",
-})
+actions:set_recipes(config.recipes)
 
 ---@return boolean, string?
 local function run()
