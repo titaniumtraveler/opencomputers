@@ -180,6 +180,10 @@ end
 
 ---@return boolean, string?
 function Actions:move_to_home()
+  if self.placement.current == self.home then
+    return true
+  end
+
   local res, msg
   res, msg = self.placement.current:move_to(self.home + Position:new(-1, 0, 0))
   if not res then
