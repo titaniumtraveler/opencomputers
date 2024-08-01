@@ -60,6 +60,7 @@ function Actions:craft_multiblock(recipe)
   return true
 end
 
+---@return boolean, string?
 function Actions:retrieve_output()
   local res, msg = self:move_from_home(self.placement.center + Position:new(0, 1, 0))
   if not res then
