@@ -4,7 +4,6 @@ local ic = component.inventory_controller
 
 local sides = require "sides"
 
-local EventHandler = require "multiblock.lib.event"
 local Inventory = require "multiblock.lib.inventory"
 local Placement = require "multiblock.lib.placement"
 local Recipe = require "multiblock.lib.recipe"
@@ -12,7 +11,6 @@ local Recipe = require "multiblock.lib.recipe"
 ---@class Multiblock.Actions
 ---@field home             Multiblock.Position
 ---@field placement        Multiblock.Placement
----@field redstone_handler Multiblock.EventHandler
 ---@field output_slot      integer
 ---@field chosen_recipe?   [Multiblock.Recipe.loaded, integer] chosen recipe to craft + amount
 ---@field recipes          Multiblock.Recipe.loaded[]
@@ -25,20 +23,11 @@ Actions.__index = Actions
 function Actions:new(center, drop)
   local home = Position:new(0, 0, 0)
   local placement = Placement:new(home, center, drop, Inventory:new())
-  -- return true until condition is achieved
-  local redstone_handler = EventHandler:new({
-    redstone_changed = function(_, side, oldValue, newValue, _)
-      return not (side == sides.back and newValue < oldValue)
-    end,
-  }, function()
-    return true
-  end)
 
   ---@type Multiblock.Actions
   local o = {
     home = home,
     placement = placement,
-    redstone_handler = redstone_handler,
     output_slot = robot.inventorySize(),
     recipes = {},
   }
@@ -148,6 +137,18 @@ function Actions:retrieve_items()
   self.placement.inventory = Inventory.scan()
 
   return true
+end
+
+---@param name     string
+---@param address  string
+---@param side     number
+---@param oldValue number
+---@param newValue number
+---@param color?   number
+---@return boolean finished
+---@diagnostic disable-next-line unused-local
+function Actions:redstone_changed(name, address, side, oldValue, newValue, color)
+  return (side == sides.back and newValue < oldValue)
 end
 
 ---@param paths string[]
