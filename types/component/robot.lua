@@ -17,7 +17,7 @@ function robot.count(slot) end
 --- Drops items from the selected slot towards the specified side.
 ---@param side number
 ---@param count? number 64
----@return false
+---@return boolean
 function robot.drop(side, count) end
 
 --- Move up to the specified amount of items from the selected slot into the specified slot.
