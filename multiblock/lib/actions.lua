@@ -150,11 +150,11 @@ function Actions:retrieve_items()
   return true
 end
 
----@param names string[]
-function Actions:set_recipes(names)
+---@param paths string[]
+function Actions:set_recipes(paths)
   local recipes = {}
-  for _, name in pairs(names) do
-    table.insert(self.recipes, { name, Recipe:load(name) })
+  for _, path in pairs(paths) do
+    table.insert(recipes, Recipe:load(path))
   end
   self.recipes = recipes
 end
