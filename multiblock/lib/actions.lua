@@ -22,7 +22,7 @@ Actions.__index = Actions
 ---@return self
 function Actions:new(center, drop)
   local home = Position:new(0, 0, 0)
-  local placement = Placement:new(home, center, drop, Inventory:new())
+  local placement = Placement:new(Position:new(0, 0, 0), center, drop, Inventory:new())
 
   ---@type Multiblock.Actions
   local o = {
